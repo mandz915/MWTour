@@ -189,12 +189,16 @@
 								<form:option value="SUBMITTED">Submit</form:option>
 							</form:select>
 						</div>
+						<div id="errordiv" style="display: none;">
+							<div class="alert alert-danger">
+								<strong>Error!</strong> Please fill-up all fields. Thank you.
+							</div>							
+						</div>
 						<div style="padding: 10px 10px;">
 							<input type="button" id="submitBtn" name="submitBtn"
 								class="btn  btn-default" value="Submit" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="button"
-								id="closeButton" name="closeButton" class="btn  btn-default"
-								value="Close" data-dismiss="modal" />
+							<input type="button" id="closeButton" name="closeButton"
+								class="btn  btn-default" value="Close" data-dismiss="modal" />
 						</div>
 
 					</form:form>
@@ -273,6 +277,9 @@
 									.on(
 											'click',
 											function() {
+												
+												$("#errordiv").css("display", "none");
+												
 												$("#tour_id")
 														.val(
 																$(this)
@@ -417,7 +424,8 @@
 									if(local_convey.length == 0){ num = 1;}
 																		
 									if(num>0){
-										alert('Please Complete all fields');
+										$("#errordiv").css("display", "block");
+
 									} else {
 										$("#formModal").submit();
 									}
