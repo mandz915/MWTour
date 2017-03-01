@@ -1,14 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="utf-8"%>
+
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+	integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+	crossorigin="anonymous" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>DBA page</title>
+<title>FINANCE page</title>
 </head>
 <body>
-	Dear
-	<strong>${user}</strong>, Welcome to DBA Page.
+	<strong>${user}</strong>Welcome to Finance Page.
 	<a href="<c:url value="/logout" />">Logout</a>
 
 	<div class="bootstrap-demo">
@@ -61,7 +67,6 @@
 		</table>
 	</div>
 
-	<!-- Modal -->
 	<div class="modal hide fade in" id="detailsModal" role="dialog"
 		aria-hidden="true" data-keyboard="false" data-backdrop="static">
 		<div class="modal-dialog">
@@ -111,32 +116,32 @@
 						<div class="form-group">
 							<label>Ticket Cost</label>
 							<form:input class="form-control" path="ticket_cost"
-								id="ticket_cost" value="${tour.ticket_cost}" readonly="true" />
+								id="ticket_cost" value="${tour.ticket_cost}" readonly="true"/>
 						</div>
 						<div class="form-group">
 							<label>Travel Mode</label>
 							<form:input class="form-control" path="travel_mode"
-								id="travel_mode" value="${tour.travel_mode}" readonly="true" />
+								id="travel_mode" value="${tour.travel_mode}" readonly="true"/>
 						</div>
 						<div class="form-group">
 							<label>Cab Home</label>
 							<form:input class="form-control" path="cab_home" id="cab_home"
-								value="${tour.cab_home}" readonly="true" />
+								value="${tour.cab_home}" readonly="true"/>
 						</div>
 						<div class="form-group">
 							<label>Cab Destination</label>
 							<form:input class="form-control" path="cab_dest" id="cab_dest"
-								value="${tour.cab_dest}" readonly="true" />
+								value="${tour.cab_dest}" readonly="true"/>
 						</div>
 						<div class="form-group">
 							<label>Hotel Cost</label>
 							<form:input class="form-control" path="hotel_cost"
-								id="hotel_cost" value="${tour.hotel_cost}" readonly="true" />
+								id="hotel_cost" value="${tour.hotel_cost}" readonly="true"/>
 						</div>
 						<div class="form-group">
 							<label>Local Conveyance</label>
 							<form:input class="form-control" path="local_convey"
-								id="local_convey" value="${tour.local_convey}" readonly="true" />
+								id="local_convey" value="${tour.local_convey}" readonly="true"/>
 						</div>
 						<div class="form-group">
 							<label>Approving Manager</label>
@@ -162,10 +167,20 @@
 				</div>
 				<div class="modal-footer"></div>
 			</div>
-
 		</div>
-
 	</div>
+
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+		integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+		integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+		integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+		crossorigin="anonymous"></script>
 
 	<!-- Include Date Range Picker -->
 	<script type="text/javascript"
@@ -186,7 +201,7 @@
 									.on(
 											'click',
 											function() {
-												//$('#detailsModal').data('tour_purpose',	$(this).data('id'));
+	
 												$("#tour_id")
 														.val(
 																$(this)
@@ -260,11 +275,11 @@
 																				'tr')
 																		.children()[11].textContent);
 												$("#tour_information")
-												.val(
-														$(this)
-																.closest(
-																		'tr')
-																.children()[12].textContent);
+														.val(
+																$(this)
+																		.closest(
+																				'tr')
+																		.children()[12].textContent);
 											});
 
 						});

@@ -21,8 +21,8 @@
 		<form name="dropdownForm" id="dropdownForm" method="get"
 			action="/MWTour/changeStatus">
 			<input type="hidden" name="dropdownHidden" id="dropdownHidden"
-				value="${statusSelected}" /> <select id="tour_status"
-				name="tour_status">
+				value="${statusSelected}" /> <select id="tour_statusDropdown"
+				name="tour_statusDropdown">
 				<option value="DRAFT">DRAFT</option>
 				<option value="SUBMITTED">SUBMITTED</option>
 				<option value="APPROVED">APPROVED</option>
@@ -94,7 +94,7 @@
 
 			<!-- Modal content-->
 			<div class="modal-content">
-				<div class="modal-header" style="padding: 35px 50px;">
+				<div class="modal-header" style="padding: 5px 5px;">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4>
 						<span class="glyphicon glyphicon-lock"></span>Tour Details
@@ -102,12 +102,14 @@
 				</div>
 				<div class="modal-body" style="padding: 40px 50px;">
 					<form:form method="POST" action="/MWTour/addTour"
-						modelAttribute="tour" id="formModal">
+						modelAttribute="tour" id="formModal" name="formModal">
 
 						<form:hidden path="tour_id" value="${tour_id}" />
+						<input type="hidden" id="statustest" name="statustest" />
 						<label for="purpose">Purpose</label>
 						<form:input class="form-control" path="tour_purpose"
-							id="tour_purpose" value="${tour.tour_purpose}" />
+							id="tour_purpose" name="tour_purpose"
+							value="${tour.tour_purpose}" />
 						<div class="form-group">
 							<label class="control-label">Start Date</label>
 							<div class="input-group">
@@ -137,62 +139,68 @@
 						<div class="form-group">
 							<label>Ticket Cost</label>
 							<form:input class="form-control numOnly" path="ticket_cost"
-								id="ticket_cost" value="${tour.ticket_cost}" />
+								id="ticket_cost" name="ticket_cost" value="${tour.ticket_cost}" />
 						</div>
 						<div class="form-group">
 							<label>Travel Mode</label>
 							<form:input class="form-control" path="travel_mode"
-								id="travel_mode" value="${tour.travel_mode}" />
+								id="travel_mode" name="travel_mode" value="${tour.travel_mode}" />
 						</div>
 						<div class="form-group">
 							<label>Cab Home</label>
 							<form:input class="form-control numOnly" path="cab_home"
-								id="cab_home" value="${tour.cab_home}" />
+								id="cab_home" name="cab_home" value="${tour.cab_home}" />
 						</div>
 						<div class="form-group">
 							<label>Cab Destination</label>
 							<form:input class="form-control numOnly" path="cab_dest"
-								id="cab_dest" value="${tour.cab_dest}" />
+								id="cab_dest" name="cab_dest" value="${tour.cab_dest}" />
 						</div>
 						<div class="form-group">
 							<label>Hotel Cost</label>
 							<form:input class="form-control numOnly" path="hotel_cost"
-								id="hotel_cost" value="${tour.hotel_cost}" />
+								id="hotel_cost" name="hotel_cost" value="${tour.hotel_cost}" />
 						</div>
 						<div class="form-group">
 							<label>Local Conveyance</label>
 							<form:input class="form-control" path="local_convey"
-								id="local_convey" value="${tour.local_convey}" />
+								id="local_convey" name="local_convey"
+								value="${tour.local_convey}" />
 						</div>
 						<div class="form-group">
 							<label>Approving Manager</label>
-							<form:select path="approving_manager" id="approving_manager">
-								<form:option value="">--- Select ---</form:option>
+							<form:select path="approving_manager" id="approving_manager"
+								class="form-control">
 								<form:option value="manager1">manager1</form:option>
 								<form:option value="manager2">manager2</form:option>
 							</form:select>
 						</div>
-						<div class="form-group">
+						<div class="form-group" id="divInfo">
 							<label>Tour Information</label>
 							<form:input class="form-control" path="tour_information"
 								id="tour_information" value="${tour.tour_information}" />
 						</div>
 
-						<div id="mulitplefileuploader">Upload</div>
-						<div id="status"></div>
-						<div id="startbutton" class="ajax-file-upload-green">Start
-							Upload</div>
-
-						<div class="form-group">
+						<div class="form-group1">
 							<label>Action</label>
-							<form:select path="tour_status" id="tour_status">
-								<form:option value="">--- Select ---</form:option>
+							<form:select path="tour_status" id="tour_status"
+								name="tour_status" class="form-control">
 								<form:option value="DRAFT">Draft</form:option>
 								<form:option value="SUBMITTED">Submit</form:option>
 							</form:select>
 						</div>
-						<input type="submit" id="submitBtn" class="btn  btn-default"
-							value="submit" />
+						<div id="errordiv" style="display: none;">
+							<div class="alert alert-danger">
+								<strong>Error!</strong> Please fill-up all fields. Thank you.
+							</div>							
+						</div>
+						<div style="padding: 10px 10px;">
+							<input type="button" id="submitBtn" name="submitBtn"
+								class="btn  btn-default" value="Submit" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="closeButton" name="closeButton"
+								class="btn  btn-default" value="Close" data-dismiss="modal" />
+						</div>
+
 					</form:form>
 				</div>
 				<div class="modal-footer"></div>
@@ -213,7 +221,6 @@
 		integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
 		crossorigin="anonymous"></script>
 
-	<!-- Include Date Range Picker -->
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 	<link rel="stylesheet"
@@ -224,6 +231,7 @@
 		$(document)
 				.ready(
 						function() {					
+							$('#divInfo').hide();
 
 							$("#createBtn").click(function() {
 								$("#detailsModal").modal({
@@ -233,7 +241,7 @@
 							});
 
 							var hiddenVal = $("#dropdownHidden").val();
-							$("#tour_status option").each(function() {
+							$("#tour_statusDropdown option").each(function() {
 								if ($(this).val() == hiddenVal) {
 									$(this).attr('selected', 'selected');
 								}
@@ -259,7 +267,7 @@
 							});
 
 							$(function() {
-								$('#tour_status').on('change', function(e) {
+								$('#tour_statusDropdown').on('change', function(e) {
 									$(this).closest('form').trigger('submit')
 								})
 							})
@@ -269,6 +277,9 @@
 									.on(
 											'click',
 											function() {
+												
+												$("#errordiv").css("display", "none");
+												
 												$("#tour_id")
 														.val(
 																$(this)
@@ -341,20 +352,90 @@
 																		.closest(
 																				'tr')
 																		.children()[11].textContent);
+												$("#statustest").val(
+														$(this)
+																.closest(
+																		'tr')
+																.children()[11].textContent);												
+												
 												$("#tour_information")
 												.val(
 														$(this)
 																.closest(
 																		'tr')
 																.children()[12].textContent);
+												
+												var testStatus = $("#statustest").val();
+												
+												if (testStatus == "REQUESTINFORMATION" || testStatus == "DRAFT") {
+													$(".class=form-control").attr("readonly", false);
+													$("#approving_manager").prop("disabled", false);
+													$("#tour_status").prop("disabled", false);
+													$("#travel_startdate").prop("disabled", false);
+													$("#travel_enddate").prop("disabled", false);
+													} else {
+													$(".form-control").attr("readonly", true);
+													$("#approving_manager").prop("disabled", true);
+													$("#tour_status").prop("disabled", true);
+													$("#travel_startdate").prop("disabled", true);
+													$("#travel_enddate").prop("disabled", true);
+													$("#submitBtn").hide();
+												}
+
+												
+												if(testStatus == "REQUESTINFORMATION"){
+													$('#divInfo').show();
+												} else {
+													$('#divInfo').hide();
+												}
 											});
 												
 							$('.numOnly').keypress(function(event) {
 								  if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
 								    event.preventDefault();
 								  }
-								});							
+								});	
+							
+							$('select[name="tour_status"]').change(function () {						        
+						        $('select[name="tour_status"]').val(this.value);
+						    });
+							
+							$('input[name="submitBtn"]').click(function(){
+								if($('select[name="tour_status"]').val() == 'SUBMITTED'){	
+									
+									var num = 0;
+									var tour_purpose = $.trim($("#tour_purpose").val());
+									var travel_startdate = $.trim($("#travel_startdate").val());
+									var travel_enddate = $.trim($("#travel_enddate").val());
+									var ticket_cost = $.trim($("#ticket_cost").val());
+									var travel_mode = $.trim($("#travel_mode").val());
+									var cab_home = $.trim($("#cab_home").val());
+									var cab_dest = $.trim($("#cab_dest").val());
+									var hotel_cost = $.trim($("#hotel_cost").val());
+									var local_convey = $.trim($("#local_convey").val());									
+									if(tour_purpose.length == 0){ num = 1;}
+									if(travel_startdate.length == 0){ num = 1;}
+									if(travel_enddate.length == 0){ num = 1;}
+									if(ticket_cost.length == 0){ num = 1;}
+									if(travel_mode.length == 0){ num = 1;}
+									if(cab_home.length == 0){ num = 1;}
+									if(cab_dest.length == 0){ num = 1;}
+									if(hotel_cost.length == 0){ num = 1;}
+									if(local_convey.length == 0){ num = 1;}
+																		
+									if(num>0){
+										$("#errordiv").css("display", "block");
+
+									} else {
+										$("#formModal").submit();
+									}
+								}  else {
+									$("#formModal").submit();
+								}	
+							});	
 						});	
+		
+		
 	</script>
 
 

@@ -14,7 +14,7 @@
 <title>Manager page</title>
 </head>
 <body>
-	<strong>${user}</strong>, Welcome to Manager Page.
+	<strong>${user}</strong>Welcome to Manager Page.
 	<a href="<c:url value="/logout" />">Logout</a>
 
 
@@ -129,32 +129,32 @@
 						</div>
 
 						<div class="form-group">
-							<label for="usrname">Ticket Cost</label>
+							<label>Ticket Cost</label>
 							<form:input class="form-control" path="ticket_cost"
 								id="ticket_cost" value="${tour.ticket_cost}" readonly="true"/>
 						</div>
 						<div class="form-group">
-							<label for="usrname">Travel Mode</label>
+							<label>Travel Mode</label>
 							<form:input class="form-control" path="travel_mode"
 								id="travel_mode" value="${tour.travel_mode}" readonly="true"/>
 						</div>
 						<div class="form-group">
-							<label for="usrname">Cab Home</label>
+							<label>Cab Home</label>
 							<form:input class="form-control" path="cab_home" id="cab_home"
 								value="${tour.cab_home}" readonly="true"/>
 						</div>
 						<div class="form-group">
-							<label for="usrname">Cab Destination</label>
+							<label>Cab Destination</label>
 							<form:input class="form-control" path="cab_dest" id="cab_dest"
 								value="${tour.cab_dest}" readonly="true"/>
 						</div>
 						<div class="form-group">
-							<label for="usrname">Hotel Cost</label>
+							<label>Hotel Cost</label>
 							<form:input class="form-control" path="hotel_cost"
 								id="hotel_cost" value="${tour.hotel_cost}" readonly="true"/>
 						</div>
 						<div class="form-group">
-							<label for="usrname">Local Conveyance</label>
+							<label>Local Conveyance</label>
 							<form:input class="form-control" path="local_convey"
 								id="local_convey" value="${tour.local_convey}" readonly="true"/>
 						</div>
@@ -164,9 +164,9 @@
 								id="tour_information" value="${tour.tour_information}" />
 						</div>													
 						<div class="form-group">
-							<label for="usrname">Action</label>
+							<label>Action</label>
 							<form:select path="tour_status" id="tour_status">
-								<form:option value="REJECTED">Reject</form:option>
+								<form:option value="REJECTED">REJECT</form:option>
 								<form:option value="SUBMITFINANCE">Submit for Finance</form:option>
 								<form:option value="REQUESTINFORMATION">Request for Information</form:option>
 							</form:select>
@@ -220,10 +220,7 @@
 									.on(
 											'click',
 											function() {
-												//or do your operations here instead of on show of modal to populate values to modal.
-												$('#detailsModal').data(
-														'tour_purpose',
-														$(this).data('id'));
+	
 												$("#tour_id")
 														.val(
 																$(this)
@@ -306,7 +303,6 @@
 
 						});
 	</script>
-
 
 </body>
 </html>
